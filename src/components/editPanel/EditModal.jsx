@@ -1,0 +1,97 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { parseWktToGeoJson } from '../../utils/wktParser';
+
+const EditModal = ({ show, handleClose, handleSave }) => {
+  const [label, setLabel] = useState('');
+  const [wkt, setWkt] = useState('');
+
+  const resetStates = () => {
+    setLabel('');
+    setWkt('');
+  };
+
+  const calculateCenterPoint = (geoJson) => {
+    const bbox = geoJson.bbox();
+    const lon = (bbox[0] + bbox[2]) / 2;
+    const lat = (bbox[1] + bbox[3]) / 2;
+
+    return [lat, lon];
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const geoJson = parseWktToGeoJson(wkt);
+    handleSave({
+      label,
+      wkt,
+      geoJson: geoJson,
+      color: 'teal',
+      centerPoint: calculateCenterPoint(geoJson),
+    });
+
+    resetStates();
+  };
+
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>New Shape</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group as={Row} controlId="formBasicLabel">
+            <Form.Label column sm={2}>
+              Label
+            </Form.Label>
+            <Col sm={10}>
+              <Form.Control
+                type="text"
+                placeholder="Shape Label"
+                value={label}
+                onChange={(event) => setLabel(event.target.value)}
+              />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} controlId="formBasicPassword">
+            <Form.Label column sm={2}>
+              Password
+            </Form.Label>
+            <Col sm={10}>
+              <Form.Control
+                as="textarea"
+                rows="6"
+                placeholder="WKT Coordinates"
+                value={wkt}
+                onChange={(event) => setWkt(event.target.value)}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Col sm={{ span: 10, offset: 2 }}>
+              <Button variant="primary" type="submit">
+                Save shape
+              </Button>
+            </Col>
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
+EditModal.propTypes = {
+  show: PropTypes.bool,
+  handleClose: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired,
+};
+
+export default EditModal;
