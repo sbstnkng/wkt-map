@@ -12,10 +12,6 @@ const renderShapeItems = (shapes, deleteItem) => {
   return shapes.map((shape, index) => <ShapeItem key={index} id={index} shape={shape} deleteItem={deleteItem} />);
 };
 
-const createLabelIfNotExist = (label, number) => {
-  return;
-};
-
 const EditPanel = ({ shapes, updateShapes }) => {
   const [show, setShow] = useState(false);
 
