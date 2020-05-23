@@ -61,9 +61,9 @@ const EditModal = ({ show, handleClose, handleSave }) => {
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} controlId="formBasicPassword">
+          <Form.Group as={Row} controlId="formBasicCoordinates">
             <Form.Label column sm={2}>
-              Password
+              Geometry
             </Form.Label>
             <Col sm={10}>
               <Form.Control
