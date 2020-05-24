@@ -8,8 +8,10 @@ import Section from '../section';
 import { getStringOrDefault } from '../../utils/stringUtils';
 import styles from './editPanel.module.css';
 
-const renderShapeItems = (shapes, deleteItem) => {
-  return shapes.map((shape, index) => <ShapeItem key={index} id={index} shape={shape} deleteItem={deleteItem} />);
+const renderShapeItems = (shapes, deleteItem, updateItem) => {
+  return shapes.map((shape, index) => (
+    <ShapeItem key={index} id={index} shape={shape} deleteItem={deleteItem} updateItem={updateItem} />
+  ));
 };
 
 const EditPanel = ({ shapes, updateShapes }) => {
@@ -28,6 +30,12 @@ const EditPanel = ({ shapes, updateShapes }) => {
     updateShapes(newShapes);
   };
 
+  const updateItem = (shapeIndex, newShape) => {
+    const newShapes = [...shapes];
+    newShapes[shapeIndex] = newShape;
+    updateShapes(newShapes);
+  };
+
   return (
     <Container>
       <Section>
@@ -37,7 +45,7 @@ const EditPanel = ({ shapes, updateShapes }) => {
             <i className="fas fa-plus"></i> New
           </Button>
         </div>
-        <div className="pt-3">{renderShapeItems(shapes, deleteItem)}</div>
+        <div className="pt-3">{renderShapeItems(shapes, deleteItem, updateItem)}</div>
       </Section>
 
       <EditModal show={show} handleClose={handleClose} handleSave={handleSave} />
@@ -53,6 +61,7 @@ EditPanel.propTypes = {
       wkt: PropTypes.string,
       color: PropTypes.string,
       centerPoint: PropTypes.arrayOf(PropTypes.number),
+      visible: PropTypes.bool,
     })
   ).isRequired,
   updateShapes: PropTypes.func.isRequired,

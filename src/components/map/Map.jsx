@@ -6,7 +6,9 @@ import styles from './map.module.css';
 const defaultCenter = [52.52226, 13.413144];
 
 const createShapes = (shapes) => {
-  return shapes.map((shape, index) => <GeoJSON key={index} data={shape.geoJson} color={shape.color} weight={2} />);
+  return shapes
+    .filter((shape) => shape.visible)
+    .map((shape) => <GeoJSON key={shapes.indexOf(shape)} data={shape.geoJson} color={shape.color} weight={2} />);
 };
 
 const calculateCenter = (shapes) => {
@@ -46,6 +48,7 @@ Map.propTypes = {
       wkt: PropTypes.string,
       color: PropTypes.string,
       centerPoint: PropTypes.arrayOf(PropTypes.number),
+      visible: PropTypes.bool,
     })
   ).isRequired,
 };

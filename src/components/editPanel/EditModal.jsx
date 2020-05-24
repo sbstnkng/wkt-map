@@ -34,6 +34,7 @@ const EditModal = ({ show, handleClose, handleSave }) => {
       geoJson: geoJson,
       color: 'teal',
       centerPoint: calculateCenterPoint(geoJson),
+      visible: true,
     });
 
     resetStates();
