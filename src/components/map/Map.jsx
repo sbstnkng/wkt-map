@@ -26,8 +26,10 @@ const calculateCenter = (shapes) => {
 
 const Map = ({ shapes }) => {
   return (
-    <LeafletMap center={calculateCenter(shapes)} zoom={16} className={styles.map}>
+    <LeafletMap center={calculateCenter(shapes)} zoom={16} maxZoom={22} className={styles.map}>
       <TileLayer
+        maxZoom={22}
+        maxNativeZoom={19}
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
