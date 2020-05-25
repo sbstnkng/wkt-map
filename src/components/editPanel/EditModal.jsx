@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +10,13 @@ import { parseWktToGeoJson } from '../../utils/wktParser';
 const EditModal = ({ show, handleClose, handleSave }) => {
   const [label, setLabel] = useState('');
   const [wkt, setWkt] = useState('');
+  const shapeInput = useRef();
+
+  useEffect(() => {
+    if (shapeInput.current) {
+      shapeInput.current.focus();
+    }
+  }, [show]);
 
   const resetStates = () => {
     setLabel('');
@@ -68,6 +75,7 @@ const EditModal = ({ show, handleClose, handleSave }) => {
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                ref={shapeInput}
                 as="textarea"
                 rows="6"
                 placeholder="WKT Coordinates"
