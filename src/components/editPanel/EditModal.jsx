@@ -5,11 +5,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { parseWktToGeoJson } from '../../utils/wktParser';
+import { parseWktToGeoJson, isWktValid } from '../../utils/wktParser';
 
 const EditModal = ({ id, show, handleClose, handleSave, editShape }) => {
   const [label, setLabel] = useState('');
   const [wkt, setWkt] = useState('');
+  const [isValid, setValid] = useState(true);
   const shapeInput = useRef();
 
   useEffect(() => {
@@ -37,18 +38,25 @@ const EditModal = ({ id, show, handleClose, handleSave, editShape }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const geoJson = parseWktToGeoJson(wkt);
-    handleSave({
-      id,
-      label,
-      wkt,
-      geoJson: geoJson,
-      color: 'teal',
-      centerPoint: calculateCenterPoint(geoJson),
-      visible: true,
-    });
+    if (isValid) {
+      const geoJson = parseWktToGeoJson(wkt);
+      handleSave({
+        id,
+        label,
+        wkt,
+        geoJson: geoJson,
+        color: 'teal',
+        centerPoint: calculateCenterPoint(geoJson),
+        visible: true,
+      });
 
-    resetStates();
+      resetStates();
+    }
+  };
+
+  const validateWktShape = (wktShapte) => {
+    const isValid = isWktValid(wktShapte);
+    setValid(isValid);
   };
 
   return (
@@ -83,9 +91,12 @@ const EditModal = ({ id, show, handleClose, handleSave, editShape }) => {
                 as="textarea"
                 rows="6"
                 placeholder="WKT Coordinates"
+                isInvalid={!isValid}
                 value={wkt}
                 onChange={(event) => setWkt(event.target.value)}
+                onBlur={(event) => validateWktShape(event.target.value)}
               />
+              <Form.Control.Feedback type="invalid">Please provide valid WKT data.</Form.Control.Feedback>
             </Col>
           </Form.Group>
           <Form.Group as={Row}>

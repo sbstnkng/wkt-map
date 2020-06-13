@@ -7,3 +7,14 @@ export const parseWktToGeoJson = (wktShape) => {
 
   return WKT.parse(wktShape);
 };
+
+export const isWktValid = (wktShape) => {
+  if (!wktShape) return false;
+
+  try {
+    parseWktToGeoJson(wktShape);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
