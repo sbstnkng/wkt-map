@@ -12,22 +12,17 @@ const createShapes = (shapes) => {
     .map((shape) => <GeoJSON key={hash(shape)} data={shape.geoJson} color={shape.color} weight={2} />);
 };
 
-const calculateCenter = (shapes) => {
-  if (shapes === undefined || shapes.length === 0) return defaultCenter;
+const calculateBounds = (shapes) => {
+  if (shapes === undefined || shapes.length === 0) return undefined;
 
-  let lat = 0;
-  let lon = 0;
-  shapes.forEach((shape) => {
-    lat += shape.centerPoint[0];
-    lon += shape.centerPoint[1];
-  });
-
-  return [lat / shapes.length, lon / shapes.length];
+  return shapes
+    .filter((shape) => shape.visible)
+    .map((shape) => shape.geoJson.coordinates[0].map((coordinates) => [coordinates[1], coordinates[0]]));
 };
 
 const Map = ({ shapes }) => {
   return (
-    <LeafletMap center={calculateCenter(shapes)} zoom={16} maxZoom={22} className={styles.map}>
+    <LeafletMap bounds={calculateBounds(shapes)} center={defaultCenter} zoom={16} maxZoom={22} className={styles.map}>
       <TileLayer
         maxZoom={22}
         maxNativeZoom={19}
