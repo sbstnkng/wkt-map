@@ -15,9 +15,11 @@ const createShapes = (shapes) => {
 const calculateBounds = (shapes) => {
   if (shapes === undefined || shapes.length === 0) return undefined;
 
-  return shapes
+  const bounds = shapes
     .filter((shape) => shape.visible)
     .map((shape) => shape.geoJson.coordinates[0].map((coordinates) => [coordinates[1], coordinates[0]]));
+
+  return bounds.length === 0 ? undefined : bounds;
 };
 
 const Map = ({ shapes }) => {
