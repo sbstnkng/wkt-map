@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map as LeafletMap, TileLayer, GeoJSON } from 'react-leaflet';
+import hash from 'object-hash';
 import styles from './map.module.css';
 
 const defaultCenter = [52.52226, 13.413144];
@@ -8,7 +9,7 @@ const defaultCenter = [52.52226, 13.413144];
 const createShapes = (shapes) => {
   return shapes
     .filter((shape) => shape.visible)
-    .map((shape) => <GeoJSON key={shapes.indexOf(shape)} data={shape.geoJson} color={shape.color} weight={2} />);
+    .map((shape) => <GeoJSON key={hash(shape)} data={shape.geoJson} color={shape.color} weight={2} />);
 };
 
 const calculateCenter = (shapes) => {
@@ -45,6 +46,7 @@ Map.defaultProps = {
 Map.propTypes = {
   shapes: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.number,
       label: PropTypes.string,
       geoJson: PropTypes.object,
       wkt: PropTypes.string,

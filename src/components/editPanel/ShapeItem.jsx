@@ -5,11 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import styles from './shapeItem.module.css';
 
-const ShapeItem = ({ id, shape, deleteItem, updateItem }) => {
+const ShapeItem = ({ shape, deleteItem, updateItemVisibility, editItem }) => {
   const { label, wkt } = shape;
 
   const updateVisibility = () => {
-    updateItem(id, { ...shape, visible: !shape.visible });
+    updateItemVisibility({ ...shape, visible: !shape.visible });
   };
 
   const renderVisibility = (shape) => {
@@ -32,9 +32,8 @@ const ShapeItem = ({ id, shape, deleteItem, updateItem }) => {
           {wkt}
         </Col>
         <Col className={styles.actions}>
-          <i className="delete fas fa-trash" style={{ color: '#e83e8c' }} onClick={() => deleteItem(id)}></i>
-          <i className="edit fas fa-edit" style={{ color: '#28a745' }}></i>
-          <i className="info fas fa-info" style={{ color: '#17a2b8' }}></i>
+          <i className="delete fas fa-trash" style={{ color: '#e83e8c' }} onClick={() => deleteItem(shape)}></i>
+          <i className="edit fas fa-edit" style={{ color: '#28a745' }} onClick={() => editItem(shape)}></i>
           {renderVisibility(shape)}
         </Col>
       </Row>
@@ -45,6 +44,7 @@ const ShapeItem = ({ id, shape, deleteItem, updateItem }) => {
 ShapeItem.propTypes = {
   id: PropTypes.number,
   shape: PropTypes.shape({
+    id: PropTypes.number,
     label: PropTypes.string,
     geoJson: PropTypes.object,
     wkt: PropTypes.string,
@@ -53,7 +53,8 @@ ShapeItem.propTypes = {
     visible: PropTypes.bool,
   }),
   deleteItem: PropTypes.func.isRequired,
-  updateItem: PropTypes.func.isRequired,
+  updateItemVisibility: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
 };
 
 export default ShapeItem;

@@ -7,16 +7,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { parseWktToGeoJson } from '../../utils/wktParser';
 
-const EditModal = ({ show, handleClose, handleSave }) => {
+const EditModal = ({ id, show, handleClose, handleSave, editShape }) => {
   const [label, setLabel] = useState('');
   const [wkt, setWkt] = useState('');
   const shapeInput = useRef();
 
   useEffect(() => {
+    setLabel(editShape.label || `Shape-${id}`);
+    setWkt(editShape.wkt);
+
     if (shapeInput.current) {
       shapeInput.current.focus();
     }
-  }, [show]);
+  }, [editShape, id, show]);
 
   const resetStates = () => {
     setLabel('');
@@ -36,6 +39,7 @@ const EditModal = ({ show, handleClose, handleSave }) => {
 
     const geoJson = parseWktToGeoJson(wkt);
     handleSave({
+      id,
       label,
       wkt,
       geoJson: geoJson,
@@ -99,8 +103,10 @@ const EditModal = ({ show, handleClose, handleSave }) => {
 
 EditModal.propTypes = {
   show: PropTypes.bool,
+  id: PropTypes.number.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleSave: PropTypes.func.isRequired,
+  editShape: PropTypes.object,
 };
 
 export default EditModal;
