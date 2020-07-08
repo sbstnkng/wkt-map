@@ -17,7 +17,16 @@ const calculateBounds = (shapes) => {
 
   const bounds = shapes
     .filter((shape) => shape.visible)
-    .map((shape) => shape.geoJson.coordinates[0].map((coordinates) => [coordinates[1], coordinates[0]]));
+    .map((shape) => {
+      const { coordinates, type } = shape.geoJson;
+      if (type === 'Point') {
+        return [coordinates[1], coordinates[0]];
+      } else if (type === 'LineString') {
+        return coordinates.map((coords) => [coords[1], coords[0]]);
+      } else {
+        return coordinates[0].map((coords) => [coords[1], coords[0]]);
+      }
+    });
 
   return bounds.length === 0 ? undefined : bounds;
 };
