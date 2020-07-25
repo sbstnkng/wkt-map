@@ -4,7 +4,7 @@ import { Map as LeafletMap, TileLayer, GeoJSON } from 'react-leaflet';
 import hash from 'object-hash';
 import styles from './map.module.css';
 
-const defaultCenter = [52.52226, 13.413144];
+const defaultCenter = [52.50687200000014, 13.431114000000054];
 
 const createShapes = (shapes) => {
   return shapes
