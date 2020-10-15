@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7ccb60d306aa0528e4804bde4afcbe1a",
+    "revision": "27a96818417bfe7ed8c1503302734e2f",
     "url": "/wkt-map/index.html"
   },
   {
-    "revision": "a3b82adfd27265528d35",
+    "revision": "b95eb80d069f5dd05502",
     "url": "/wkt-map/static/css/2.3cf5d70f.chunk.css"
   },
   {
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wkt-map/static/css/main.a104da59.chunk.css"
   },
   {
-    "revision": "a3b82adfd27265528d35",
-    "url": "/wkt-map/static/js/2.47b73794.chunk.js"
+    "revision": "b95eb80d069f5dd05502",
+    "url": "/wkt-map/static/js/2.6980728d.chunk.js"
   },
   {
-    "revision": "17dffa516c2ca25cecdb67ecbc5e1c6e",
-    "url": "/wkt-map/static/js/2.47b73794.chunk.js.LICENSE.txt"
+    "revision": "61db9f7dfc0d26372a22b73d1754bdf4",
+    "url": "/wkt-map/static/js/2.6980728d.chunk.js.LICENSE.txt"
   },
   {
     "revision": "bc84825ec9b3a158bef9",
