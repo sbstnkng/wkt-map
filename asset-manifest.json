@@ -6,19 +6,19 @@
     "runtime-main.js": "/wkt-map/static/js/runtime-main.e2255fb2.js",
     "runtime-main.js.map": "/wkt-map/static/js/runtime-main.e2255fb2.js.map",
     "static/css/2.3cf5d70f.chunk.css": "/wkt-map/static/css/2.3cf5d70f.chunk.css",
-    "static/js/2.6980728d.chunk.js": "/wkt-map/static/js/2.6980728d.chunk.js",
-    "static/js/2.6980728d.chunk.js.map": "/wkt-map/static/js/2.6980728d.chunk.js.map",
+    "static/js/2.f681a3f8.chunk.js": "/wkt-map/static/js/2.f681a3f8.chunk.js",
+    "static/js/2.f681a3f8.chunk.js.map": "/wkt-map/static/js/2.f681a3f8.chunk.js.map",
     "index.html": "/wkt-map/index.html",
-    "precache-manifest.14dd2c6f3a8d37295b7922ac1ed87ca6.js": "/wkt-map/precache-manifest.14dd2c6f3a8d37295b7922ac1ed87ca6.js",
+    "precache-manifest.608911925e9b7b49852fab18225f05af.js": "/wkt-map/precache-manifest.608911925e9b7b49852fab18225f05af.js",
     "service-worker.js": "/wkt-map/service-worker.js",
     "static/css/2.3cf5d70f.chunk.css.map": "/wkt-map/static/css/2.3cf5d70f.chunk.css.map",
     "static/css/main.a104da59.chunk.css.map": "/wkt-map/static/css/main.a104da59.chunk.css.map",
-    "static/js/2.6980728d.chunk.js.LICENSE.txt": "/wkt-map/static/js/2.6980728d.chunk.js.LICENSE.txt"
+    "static/js/2.f681a3f8.chunk.js.LICENSE.txt": "/wkt-map/static/js/2.f681a3f8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e2255fb2.js",
     "static/css/2.3cf5d70f.chunk.css",
-    "static/js/2.6980728d.chunk.js",
+    "static/js/2.f681a3f8.chunk.js",
     "static/css/main.a104da59.chunk.css",
     "static/js/main.ecabc03e.chunk.js"
   ]
