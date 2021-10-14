@@ -20,7 +20,7 @@ export const Map: React.FC = () => {
       scrollWheelZoom={true}
       className={styles.mapContainer}
     >
-      <ScaleControl position="bottomright" />
+      <ScaleControl position="bottomleft" />
       <LayersControl position="topleft">
         <LayersControl.BaseLayer checked name="OpenStreetMap">
           <TileLayer {...providers.OpenStreetMap} />
