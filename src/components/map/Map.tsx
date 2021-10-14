@@ -1,6 +1,11 @@
 import React from 'react';
 import { LatLngExpression } from 'leaflet';
-import { MapContainer, TileLayer, LayersControl } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  LayersControl,
+  ScaleControl,
+} from 'react-leaflet';
 import providers from './providers';
 import styles from './map.module.css';
 
@@ -11,11 +16,11 @@ export const Map: React.FC = () => {
     <MapContainer
       center={center}
       zoom={12}
-      maxZoom={18}
       minZoom={2}
       scrollWheelZoom={true}
       className={styles.mapContainer}
     >
+      <ScaleControl position="bottomright" />
       <LayersControl position="topleft">
         <LayersControl.BaseLayer checked name="OpenStreetMap">
           <TileLayer {...providers.OpenStreetMap} />
