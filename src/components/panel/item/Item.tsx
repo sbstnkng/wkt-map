@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
-import { ItemType } from '../../../types/ItemTypes';
+import { useDispatch } from 'react-redux';
+import { ItemType, MapItem } from '../../../types/Item';
 import styles from './item.module.css';
+import {
+  DELETE_ITEM,
+  TOGGLE_ITEM_VISIBILITY,
+} from '../../../redux/actionTypes';
 
-type Props = {
-  id: number;
-  label: string;
-  type: ItemType;
-  isVisible: boolean;
-};
+type Props = MapItem;
 
-export const Item: React.FC<Props> = ({ label, type, isVisible }: Props) => {
+export const Item: React.FC<Props> = ({
+  id,
+  label,
+  type,
+  isVisible,
+}: Props) => {
+  const dispatch = useDispatch();
   const [showControls, setShowControls] = useState(false);
   const faIconClass =
     type === ItemType.POINT ? 'fa-map-marker' : 'fa-draw-polygon';
+
+  const handleToggleVisibility = () => {
+    dispatch({ type: TOGGLE_ITEM_VISIBILITY, payload: { id } });
+  };
+
+  const handleEdit = () => {
+    alert('Not implemented yet!');
+  };
+
+  const handleDelete = () => {
+    dispatch({ type: DELETE_ITEM, payload: { id } });
+  };
 
   return (
     <div
@@ -32,9 +50,16 @@ export const Item: React.FC<Props> = ({ label, type, isVisible }: Props) => {
             className={`${
               isVisible ? styles.visible : styles.invisible
             } p-2 fas fa-eye${isVisible ? '' : '-slash'}`}
+            onClick={handleToggleVisibility}
           ></i>
-          <i className={`${styles.edit} p-2 fas fa-pen`}></i>
-          <i className={`${styles.delete} p-2 fas fa-trash`}></i>
+          <i
+            className={`${styles.edit} p-2 fas fa-pen`}
+            onClick={handleEdit}
+          ></i>
+          <i
+            className={`${styles.delete} p-2 fas fa-trash`}
+            onClick={handleDelete}
+          ></i>
         </div>
       )}
     </div>

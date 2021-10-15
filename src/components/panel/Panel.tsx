@@ -1,29 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { MapItem } from '../../types/Item';
+import { State } from '../../types/Redux';
 import AddButtton from './buttons';
 import Item from './item';
-import { ItemType } from '../../types/ItemTypes';
 import styles from './panel.module.css';
 
 export const Panel: React.FC = () => {
-  const [items, setItems] = useState<JSX.Element[]>([]);
+  const items: MapItem[] = useSelector((state: State) => state.items);
 
   const handleButtonClick = () => {
-    setItems([
-      ...items,
-      <Item
-        id={items.length}
-        label={`Item ${items.length + 1}`}
-        type={items.length % 2 === 0 ? ItemType.POINT : ItemType.POLYGON}
-        isVisible={items.length % 2 !== 0}
-      />,
-    ]);
+    alert('Not implemented yet!');
   };
 
   return (
     <div className={styles.container}>
       <AddButtton onClick={handleButtonClick} />
-      {items.map((component, index) => (
-        <React.Fragment key={index}>{component}</React.Fragment>
+      {items.map((item: MapItem) => (
+        <Item key={item.id} {...item} />
       ))}
     </div>
   );
