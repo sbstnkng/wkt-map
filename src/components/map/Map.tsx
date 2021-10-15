@@ -6,6 +6,7 @@ import {
   LayersControl,
   ScaleControl,
   GeoJSON,
+  Popup,
 } from 'react-leaflet';
 import { useSelector } from 'react-redux';
 import { MapItem } from '../../types/Item';
@@ -21,7 +22,11 @@ export const Map: React.FC = () => {
   const createMapItems = (mapItems: MapItem[]) => {
     return mapItems
       .filter((item) => item.isVisible)
-      .map((item) => <GeoJSON key={item.id} data={item.geoJson} />);
+      .map((item) => (
+        <GeoJSON key={item.id} data={item.geoJson}>
+          <Popup>{item.label}</Popup>
+        </GeoJSON>
+      ));
   };
 
   return (
