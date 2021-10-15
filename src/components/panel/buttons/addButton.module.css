@@ -2,8 +2,8 @@
 .addButton:active,
 .addButton:hover,
 .addButton:focus {
-  background-color: rgba(52, 58, 64, 1) !important;
-  border-color: rgba(52, 58, 64, 1) !important;
+  background-color: rgba(52, 58, 64, 0.9) !important;
+  border-color: rgba(52, 58, 64, 0.9) !important;
 }
 
 .addButton {
