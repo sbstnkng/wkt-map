@@ -34,7 +34,9 @@ export const Item: React.FC<Props> = ({
 
   return (
     <div
-      className={styles.container}
+      className={`${styles.container} ${
+        !isVisible ? styles.containerInvisible : ''
+      }`}
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
     >
