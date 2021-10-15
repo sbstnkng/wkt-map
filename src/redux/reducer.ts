@@ -7,6 +7,7 @@ import {
   DELETE_ITEM,
   TOGGLE_ITEM_VISIBILITY,
 } from './actionTypes';
+import { berlin, berlinAlexanderplatz } from './exampleCoordinates';
 
 const initialState: State = {
   items: [
@@ -15,6 +16,16 @@ const initialState: State = {
       label: 'Berlin',
       type: ItemType.POLYGON,
       isVisible: true,
+      color: 'teal',
+      geoJson: berlin.geoJson,
+    },
+    {
+      id: uuidv4(),
+      label: 'Alexanderplatz',
+      type: ItemType.POINT,
+      isVisible: true,
+      color: 'teal',
+      geoJson: berlinAlexanderplatz.geoJson,
     },
   ],
 };

@@ -10,4 +10,6 @@ export interface MapItem {
   label: string;
   type: ItemType;
   isVisible: boolean;
+  color: string;
+  geoJson: any;
 }

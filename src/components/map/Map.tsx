@@ -5,13 +5,25 @@ import {
   TileLayer,
   LayersControl,
   ScaleControl,
+  GeoJSON,
 } from 'react-leaflet';
+import { useSelector } from 'react-redux';
+import { MapItem } from '../../types/Item';
+import { State } from '../../types/Redux';
 import providers from './providers';
 import styles from './map.module.css';
 
 const center: LatLngExpression = [52.52101521990809, 13.409175396469893];
 
 export const Map: React.FC = () => {
+  const items: MapItem[] = useSelector((state: State) => state.items);
+
+  const createMapItems = (mapItems: MapItem[]) => {
+    return mapItems
+      .filter((item) => item.isVisible)
+      .map((item) => <GeoJSON key={item.id} data={item.geoJson} />);
+  };
+
   return (
     <MapContainer
       center={center}
@@ -32,6 +44,8 @@ export const Map: React.FC = () => {
           <TileLayer {...providers.Stamen} />
         </LayersControl.BaseLayer>
       </LayersControl>
+
+      {createMapItems(items)}
     </MapContainer>
   );
 };
