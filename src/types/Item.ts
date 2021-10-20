@@ -11,5 +11,5 @@ export interface MapItem {
   type: ItemType;
   isVisible: boolean;
   color: string;
-  geoJson: any;
+  geoJson?: any;
 }

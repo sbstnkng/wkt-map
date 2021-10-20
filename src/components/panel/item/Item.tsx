@@ -7,25 +7,20 @@ import {
   TOGGLE_ITEM_VISIBILITY,
 } from '../../../redux/actionTypes';
 
-type Props = MapItem;
+type Props = {
+  item: MapItem;
+  handleEdit: (item: MapItem) => void;
+};
 
-export const Item: React.FC<Props> = ({
-  id,
-  label,
-  type,
-  isVisible,
-}: Props) => {
+export const Item: React.FC<Props> = ({ item, handleEdit }: Props) => {
   const dispatch = useDispatch();
   const [showControls, setShowControls] = useState(false);
+  const { id, label, type, isVisible }: MapItem = item;
   const faIconClass =
     type === ItemType.POINT ? 'fa-map-marker' : 'fa-draw-polygon';
 
   const handleToggleVisibility = () => {
     dispatch({ type: TOGGLE_ITEM_VISIBILITY, payload: { id } });
-  };
-
-  const handleEdit = () => {
-    alert('Not implemented yet!');
   };
 
   const handleDelete = () => {
@@ -56,7 +51,7 @@ export const Item: React.FC<Props> = ({
           ></i>
           <i
             className={`${styles.edit} p-2 fas fa-pen`}
-            onClick={handleEdit}
+            onClick={() => handleEdit(item)}
           ></i>
           <i
             className={`${styles.delete} p-2 fas fa-trash`}
