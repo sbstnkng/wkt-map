@@ -24,7 +24,9 @@ export const Map: React.FC = () => {
       .filter((item) => item.isVisible)
       .map((item) => (
         <GeoJSON key={item.id} data={item.geoJson}>
-          <Popup>{item.label}</Popup>
+          <Popup>
+            <strong>{item.label}</strong>
+          </Popup>
         </GeoJSON>
       ));
   };
