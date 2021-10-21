@@ -1,5 +1,5 @@
-import React from 'react';
-import { LatLngExpression } from 'leaflet';
+import React, { useEffect, useState } from 'react';
+import { LatLngBoundsExpression } from 'leaflet';
 import {
   MapContainer,
   TileLayer,
@@ -14,10 +14,33 @@ import { State } from '../../types/Redux';
 import providers from './providers';
 import styles from './map.module.css';
 
-const center: LatLngExpression = [52.52101521990809, 13.409175396469893];
+const calculateBounds = (items: MapItem[]): LatLngBoundsExpression => {
+  const bounds = items
+    .filter((item: MapItem) => item.isVisible)
+    .map((shape) => {
+      const { coordinates, type } = shape.geoJson;
+      if (type === 'Point') {
+        return [coordinates[1], coordinates[0]];
+      } else if (type === 'LineString') {
+        return coordinates.map((coords: any) => [coords[1], coords[0]]);
+      } else {
+        return coordinates[0].map((coords: any) => [coords[1], coords[0]]);
+      }
+    });
+
+  return bounds;
+};
 
 export const Map: React.FC = () => {
   const items: MapItem[] = useSelector((state: State) => state.items);
+  const [boundaries, setBoundaries] = useState<LatLngBoundsExpression>(
+    calculateBounds(items)
+  );
+
+  useEffect(() => {
+    console.log('calculate boundaries');
+    setBoundaries(calculateBounds(items));
+  }, [items]);
 
   const createMapItems = (mapItems: MapItem[]) => {
     return mapItems
@@ -33,8 +56,7 @@ export const Map: React.FC = () => {
 
   return (
     <MapContainer
-      center={center}
-      zoom={12}
+      bounds={boundaries}
       minZoom={2}
       scrollWheelZoom={true}
       className={styles.mapContainer}
