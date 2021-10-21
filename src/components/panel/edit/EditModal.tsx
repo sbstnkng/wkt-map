@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { MapItem } from '../../../types/Item';
+import { ItemType, MapItem } from '../../../types/Item';
 import { wktToGeoJson, geoJsonToWkt } from '../../../utils/wktParser';
+import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
 
 interface Props {
   show: boolean;
@@ -18,6 +20,7 @@ export const EditModal: React.FC<Props> = ({
   item,
   handleClose,
 }: Props) => {
+  const dispatch = useDispatch();
   const [label, setLabel] = useState('');
   const [wkt, setWkt] = useState<string | undefined>(undefined);
   const [isValid, setValid] = useState<boolean>(true);
@@ -54,9 +57,26 @@ export const EditModal: React.FC<Props> = ({
 
     if (isValid) {
       const geoJson = wktToGeoJson(wkt as string);
-      handleClose();
+
+      if (item) {
+        dispatch({ type: MODIFY_ITEM, payload: { id: item.id, item } });
+      } else {
+        const newItem = {
+          label,
+          geoJson,
+          isVisible: true,
+          type: geoJson?.type === 'Point' ? ItemType.POINT : ItemType.POLYGON,
+          color: '',
+        };
+
+        dispatch({
+          type: ADD_ITEM,
+          payload: { item: newItem },
+        });
+      }
 
       resetStates();
+      handleClose();
     }
   };
 
