@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  justify-content: flex-end;
+  row-gap: 0.5rem;
+  position: absolute;
+  right: 0;
+  bottom: 35px;
+}
+
+.container * {
+  z-index: 999;
+}

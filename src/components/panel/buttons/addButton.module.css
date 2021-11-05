@@ -1,0 +1,13 @@
+.addButton,
+.addButton:active,
+.addButton:hover,
+.addButton:focus {
+  background-color: rgba(52, 58, 64, 0.9) !important;
+  border-color: rgba(52, 58, 64, 0.9) !important;
+}
+
+.addButton {
+  margin-top: 1rem;
+  margin-right: 2rem;
+  border-radius: 50% 50% 50% 50% !important;
+}

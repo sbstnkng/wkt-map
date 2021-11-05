@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 0.5rem;
+  background-color: rgba(52, 58, 64, 0.9);
+  color: white;
+  border-radius: 1.5rem 0 0 1.5rem;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+}
+
+.container:hover > .label {
+  color: white;
+  width: fit-content;
+  max-width: 80vw;
+}
+
+.containerInvisible {
+  opacity: 0.8;
+}
+
+.label {
+  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  color: rgb(52, 58, 64);
+  background-color: turquoise;
+}
+
+.icon > i {
+  font-size: 1.25rem;
+}
+
+.controlPanel {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 0.15rem;
+  padding-left: 0.5rem;
+}
+
+.controlPanel * {
+  cursor: pointer;
+}
+
+.visible,
+.invisible,
+.edit,
+.delete {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.visible:hover {
+  color: rgb(32, 201, 151);
+}
+
+.invisible:hover {
+  color: rgb(255, 255, 255, 0.3);
+}
+
+.edit:hover {
+  color: rgb(23, 162, 184);
+}
+
+.delete:hover {
+  color: rgb(232, 62, 140);
+}
