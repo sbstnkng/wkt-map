@@ -65,7 +65,7 @@ export const EditModal: React.FC<Props> = ({
           label,
           geoJson,
           isVisible: true,
-          type: geoJson?.type === 'Point' ? ItemType.POINT : ItemType.POLYGON,
+          type: geoJson?.type as ItemType,
           color: '',
         };
 

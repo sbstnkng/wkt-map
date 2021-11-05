@@ -1,62 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { LatLngBoundsExpression } from 'leaflet';
+import React from 'react';
 import {
   MapContainer,
   TileLayer,
   LayersControl,
   ScaleControl,
-  GeoJSON,
-  Popup,
 } from 'react-leaflet';
 import { useSelector } from 'react-redux';
 import { MapItem } from '../../types/Item';
 import { State } from '../../types/Redux';
 import providers from './providers';
 import styles from './map.module.css';
-
-const calculateBounds = (items: MapItem[]): LatLngBoundsExpression => {
-  const bounds = items
-    .filter((item: MapItem) => item.isVisible)
-    .map((shape) => {
-      const { coordinates, type } = shape.geoJson;
-      if (type === 'Point') {
-        return [coordinates[1], coordinates[0]];
-      } else if (type === 'LineString') {
-        return coordinates.map((coords: any) => [coords[1], coords[0]]);
-      } else {
-        return coordinates[0].map((coords: any) => [coords[1], coords[0]]);
-      }
-    });
-
-  return bounds;
-};
+import { MapItems } from './MapItems';
 
 export const Map: React.FC = () => {
   const items: MapItem[] = useSelector((state: State) => state.items);
-  const [boundaries, setBoundaries] = useState<LatLngBoundsExpression>(
-    calculateBounds(items)
-  );
-
-  useEffect(() => {
-    console.log('calculate boundaries');
-    setBoundaries(calculateBounds(items));
-  }, [items]);
-
-  const createMapItems = (mapItems: MapItem[]) => {
-    return mapItems
-      .filter((item) => item.isVisible)
-      .map((item) => (
-        <GeoJSON key={item.id} data={item.geoJson}>
-          <Popup>
-            <strong>{item.label}</strong>
-          </Popup>
-        </GeoJSON>
-      ));
-  };
 
   return (
     <MapContainer
-      bounds={boundaries}
+      center={[51.505, 10.09]}
+      zoom={4}
       minZoom={2}
       scrollWheelZoom={true}
       className={styles.mapContainer}
@@ -74,7 +36,7 @@ export const Map: React.FC = () => {
         </LayersControl.BaseLayer>
       </LayersControl>
 
-      {createMapItems(items)}
+      <MapItems items={items} />
     </MapContainer>
   );
 };

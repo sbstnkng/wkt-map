@@ -1,8 +1,10 @@
 export type UUID = string;
 
 export enum ItemType {
-  POINT,
-  POLYGON,
+  POINT = 'Point',
+  MULTIPOINT = 'MultiPoint',
+  LINESTRING = 'LineString',
+  POLYGON = 'Polygon',
 }
 
 export interface MapItem {
