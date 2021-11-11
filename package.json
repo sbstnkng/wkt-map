@@ -38,7 +38,6 @@
     "extends": [
       "react-app",
       "react-app/jest",
-      "prettier/@typescript-eslint",
       "plugin:prettier/recommended"
     ],
     "rules": {
@@ -76,7 +75,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-redux": "^7.1.20",
     "@types/uuid": "^8.3.1",
-    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
