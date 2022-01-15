@@ -8,6 +8,7 @@ import {
   LatLngBounds,
 } from 'leaflet';
 import { GeoJSON, Popup, useMap } from 'react-leaflet';
+import hash from 'object-hash';
 import { ItemType, MapItem } from '../../types/Item';
 
 interface Props {
@@ -60,7 +61,7 @@ export const MapItems: React.FC<Props> = ({ items }) => {
       {items
         .filter((item) => item.isVisible)
         .map((item) => (
-          <GeoJSON key={item.id} data={item.geoJson}>
+          <GeoJSON key={hash(item)} data={item.geoJson}>
             <Popup>
               <strong>{item.label}</strong>
             </Popup>

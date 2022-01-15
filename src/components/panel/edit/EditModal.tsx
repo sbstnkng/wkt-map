@@ -59,7 +59,16 @@ export const EditModal: React.FC<Props> = ({
       const geoJson = wktToGeoJson(wkt as string);
 
       if (item) {
-        dispatch({ type: MODIFY_ITEM, payload: { id: item.id, item } });
+        const modifiedItem: MapItem = {
+          ...item,
+          label,
+          geoJson,
+          type: geoJson?.type as ItemType,
+        };
+        dispatch({
+          type: MODIFY_ITEM,
+          payload: { id: modifiedItem.id, item: modifiedItem },
+        });
       } else {
         const newItem = {
           label,
