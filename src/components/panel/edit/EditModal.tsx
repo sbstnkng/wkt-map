@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Title from './title';
 import { ItemType, MapItem } from '../../../types/Item';
 import { wktToGeoJson, geoJsonToWkt } from '../../../utils/wktParser';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
@@ -25,10 +26,10 @@ export const EditModal: React.FC<Props> = ({
   const [wkt, setWkt] = useState<string | undefined>(undefined);
   const [isValid, setValid] = useState<boolean>(true);
   const shapeInput: React.Ref<any> = useRef();
-  const title = item === null ? 'Add Coordinates' : 'Edit Coordinates';
+  const isNewItem = item === null;
 
   useEffect(() => {
-    setLabel(item?.label || 'New Shape');
+    setLabel(item?.label || 'New Coordinates');
     setWkt(geoJsonToWkt(item?.geoJson));
 
     if (shapeInput.current) {
@@ -93,7 +94,7 @@ export const EditModal: React.FC<Props> = ({
     <Modal size="lg" show={show} onHide={handleClose}>
       <Form onSubmit={handleSave}>
         <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
+          <Title showAsEdit={!isNewItem} />
         </Modal.Header>
         <Modal.Body>
           <Form.Group as={Row} controlId="formBasicLabel">

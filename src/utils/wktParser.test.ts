@@ -1,4 +1,3 @@
-import { geoJSON } from 'leaflet';
 import { GeoJSON } from '../types/Geo';
 import { wktToGeoJson, geoJsonToWkt } from './wktParser';
 
