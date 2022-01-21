@@ -3,10 +3,8 @@ import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Title from './title';
-import Label from './label';
+import { Label, Wkt } from './input';
 import { ItemType, MapItem } from '../../../types/Item';
 import { wktToGeoJson, geoJsonToWkt } from '../../../utils/wktParser';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
@@ -102,31 +100,13 @@ export const EditModal: React.FC<Props> = ({
             text={label}
             onChange={(event) => setLabel(event.target.value)}
           />
-
-          <Form.Group
-            as={Row}
-            controlId="formBasicCoordinates"
-            className="mt-3"
-          >
-            <Form.Label column sm={2}>
-              Geometry
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                ref={shapeInput}
-                as="textarea"
-                rows={6}
-                placeholder="WKT Coordinates"
-                isInvalid={!isValid}
-                value={wkt}
-                onChange={(event) => setWkt(event.target.value)}
-                onBlur={(event) => validateWktShape(event.target.value)}
-              />
-              <Form.Control.Feedback type="invalid">
-                Please provide valid WKT data.
-              </Form.Control.Feedback>
-            </Col>
-          </Form.Group>
+          <Wkt
+            ref={shapeInput}
+            wkt={wkt}
+            isValid={isValid}
+            onChange={(event) => setWkt(event.target.value)}
+            onBlur={(event) => validateWktShape(event.target.value)}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button type="submit" variant="primary" disabled={wkt === undefined}>
