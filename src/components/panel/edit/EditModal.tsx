@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Title from './title';
+import Label from './label';
 import { ItemType, MapItem } from '../../../types/Item';
 import { wktToGeoJson, geoJsonToWkt } from '../../../utils/wktParser';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
@@ -97,19 +98,10 @@ export const EditModal: React.FC<Props> = ({
           <Title showAsEdit={!isNewItem} />
         </Modal.Header>
         <Modal.Body>
-          <Form.Group as={Row} controlId="formBasicLabel">
-            <Form.Label column sm={2}>
-              Label
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                placeholder="Shape Label"
-                value={label}
-                onChange={(event) => setLabel(event.target.value)}
-              />
-            </Col>
-          </Form.Group>
+          <Label
+            text={label}
+            onChange={(event) => setLabel(event.target.value)}
+          />
 
           <Form.Group
             as={Row}
