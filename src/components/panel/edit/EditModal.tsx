@@ -3,11 +3,14 @@ import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import Title from './title';
-import { Label, Wkt } from './input';
+import { Label, LatLon, Wkt } from './input';
 import { GeoJSON } from '../../../types/Geo';
 import { ItemType, MapItem } from '../../../types/Item';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
+import styles from './EditModal.module.css';
 
 interface Props {
   show: boolean;
@@ -30,6 +33,12 @@ export const EditModal: React.FC<Props> = ({
     setLabel(item?.label || 'New Coordinates');
     setGeoJson(item?.geoJson);
   }, [item, show]);
+
+  const isGeoJsonPoint = (geoJson: GeoJSON | undefined): boolean => {
+    if (geoJson === undefined) return true;
+
+    return geoJson.type === ItemType.POINT;
+  };
 
   const saveGeoJson = (geoJson: GeoJSON | undefined) => {
     setGeoJson(geoJson);
@@ -93,7 +102,22 @@ export const EditModal: React.FC<Props> = ({
             text={label}
             onChange={(event) => setLabel(event.target.value)}
           />
-          <Wkt geoJson={geoJson} isValid={isValid} saveGeoJson={saveGeoJson} />
+          <Tabs defaultActiveKey="wkt" className={styles.tabPanel}>
+            <Tab eventKey="wkt" title="WKT">
+              <Wkt
+                geoJson={geoJson}
+                isValid={isValid}
+                saveGeoJson={saveGeoJson}
+              />
+            </Tab>
+            <Tab
+              eventKey="latlon"
+              title="Lat / Lon"
+              disabled={!isGeoJsonPoint(geoJson)}
+            >
+              <LatLon geoJson={geoJson} saveGeoJson={saveGeoJson} />
+            </Tab>
+          </Tabs>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseInternal}>
