@@ -7,7 +7,7 @@ import {
   latLngBounds,
   LatLngBounds,
 } from 'leaflet';
-import { CircleMarker, GeoJSON, Popup, useMap } from 'react-leaflet';
+import { GeoJSON, Popup, useMap } from 'react-leaflet';
 import hash from 'object-hash';
 import { ItemType, MapItem } from '../../types/Item';
 
