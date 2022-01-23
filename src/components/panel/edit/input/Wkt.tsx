@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { GeoJSON } from '../../../../types/Geo';
+import { wktToGeoJson, geoJsonToWkt } from '../../../../utils/wktParser';
 
 interface Props {
-  ref: React.Ref<any>;
-  wkt: string | undefined;
+  geoJson: GeoJSON | undefined;
   isValid: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  saveGeoJson: (geoJson: GeoJSON | undefined) => void;
 }
 
-export const Wkt: React.FC<Props> = ({
-  wkt,
-  ref,
-  isValid,
-  onChange,
-  onBlur,
-}) => {
+export const Wkt: React.FC<Props> = ({ geoJson, isValid, saveGeoJson }) => {
+  const [wkt, setWkt] = useState<string>('');
+
+  useEffect(() => {
+    if (geoJson) {
+      setWkt(geoJsonToWkt(geoJson) || '');
+    }
+  }, [geoJson]);
+
+  const handleOnBlur = () => {
+    try {
+      saveGeoJson(wktToGeoJson(wkt));
+    } catch (error) {
+      saveGeoJson(undefined);
+    }
+  };
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWkt(event.target.value.toUpperCase());
+  };
+
   return (
     <Form.Group as={Row} controlId="formBasicCoordinates" className="mt-3">
       <Form.Label column sm={2}>
@@ -25,14 +39,13 @@ export const Wkt: React.FC<Props> = ({
       </Form.Label>
       <Col sm={10}>
         <Form.Control
-          ref={ref}
           as="textarea"
           rows={6}
           placeholder="WKT Coordinates"
           isInvalid={!isValid}
           value={wkt}
-          onChange={onChange}
-          onBlur={onBlur}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
         />
         <Form.Control.Feedback type="invalid">
           Please provide valid WKT data.

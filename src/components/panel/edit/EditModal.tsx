@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Title from './title';
 import { Label, Wkt } from './input';
+import { GeoJSON } from '../../../types/Geo';
 import { ItemType, MapItem } from '../../../types/Item';
-import { wktToGeoJson, geoJsonToWkt } from '../../../utils/wktParser';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
 
 interface Props {
@@ -22,42 +22,35 @@ export const EditModal: React.FC<Props> = ({
 }: Props) => {
   const dispatch = useDispatch();
   const [label, setLabel] = useState('');
-  const [wkt, setWkt] = useState<string | undefined>(undefined);
+  const [geoJson, setGeoJson] = useState<GeoJSON | undefined>(undefined);
   const [isValid, setValid] = useState<boolean>(true);
-  const shapeInput: React.Ref<any> = useRef();
   const isNewItem = item === null;
 
   useEffect(() => {
     setLabel(item?.label || 'New Coordinates');
-    setWkt(geoJsonToWkt(item?.geoJson));
-
-    if (shapeInput.current) {
-      shapeInput.current.focus();
-    }
+    setGeoJson(item?.geoJson);
   }, [item, show]);
 
-  const validateWktShape = (wkt: string) => {
-    let isValid = false;
-    try {
-      isValid = wktToGeoJson(wkt) !== undefined;
-    } catch (error) {
-      isValid = false;
-    }
-
-    setValid(isValid);
+  const saveGeoJson = (geoJson: GeoJSON | undefined) => {
+    setGeoJson(geoJson);
+    setValid(geoJson !== undefined);
   };
 
   const resetStates = () => {
     setLabel('');
-    setWkt('');
+    setGeoJson(undefined);
+    setValid(true);
+  };
+
+  const handleCloseInternal = () => {
+    resetStates();
+    handleClose();
   };
 
   const handleSave = (e: any) => {
     e.preventDefault();
 
     if (isValid) {
-      const geoJson = wktToGeoJson(wkt as string);
-
       if (item) {
         const modifiedItem: MapItem = {
           ...item,
@@ -90,7 +83,7 @@ export const EditModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal size="lg" show={show} onHide={handleClose}>
+    <Modal size="lg" show={show} onHide={handleCloseInternal}>
       <Form onSubmit={handleSave}>
         <Modal.Header closeButton>
           <Title showAsEdit={!isNewItem} />
@@ -100,16 +93,17 @@ export const EditModal: React.FC<Props> = ({
             text={label}
             onChange={(event) => setLabel(event.target.value)}
           />
-          <Wkt
-            ref={shapeInput}
-            wkt={wkt}
-            isValid={isValid}
-            onChange={(event) => setWkt(event.target.value)}
-            onBlur={(event) => validateWktShape(event.target.value)}
-          />
+          <Wkt geoJson={geoJson} isValid={isValid} saveGeoJson={saveGeoJson} />
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit" variant="primary" disabled={wkt === undefined}>
+          <Button variant="secondary" onClick={handleCloseInternal}>
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={geoJson === undefined}
+          >
             <i className="fas fa-save"></i>
             <span className="mx-2">Save</span>
           </Button>
