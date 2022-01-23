@@ -7,7 +7,7 @@ import {
   latLngBounds,
   LatLngBounds,
 } from 'leaflet';
-import { GeoJSON, Popup, useMap } from 'react-leaflet';
+import { CircleMarker, GeoJSON, Popup, useMap } from 'react-leaflet';
 import hash from 'object-hash';
 import { ItemType, MapItem } from '../../types/Item';
 
@@ -61,7 +61,11 @@ export const MapItems: React.FC<Props> = ({ items }) => {
       {items
         .filter((item) => item.isVisible)
         .map((item) => (
-          <GeoJSON key={hash(item)} data={item.geoJson}>
+          <GeoJSON
+            key={hash(item)}
+            data={item.geoJson}
+            style={{ color: item.color, fillColor: item.color }}
+          >
             <Popup>
               <strong>{item.label}</strong>
             </Popup>

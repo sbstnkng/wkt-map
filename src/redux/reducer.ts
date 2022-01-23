@@ -16,7 +16,7 @@ const initialState: State = {
       label: 'Berlin',
       type: ItemType.POLYGON,
       isVisible: true,
-      color: 'teal',
+      color: '#008080',
       geoJson: berlin.geoJson,
     },
     {
@@ -24,7 +24,7 @@ const initialState: State = {
       label: 'Alexanderplatz',
       type: ItemType.POINT,
       isVisible: true,
-      color: 'teal',
+      color: '#008080',
       geoJson: berlinAlexanderplatz.geoJson,
     },
   ],

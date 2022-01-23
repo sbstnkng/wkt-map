@@ -18,6 +18,8 @@ interface Props {
   handleClose: () => void;
 }
 
+const DEFAULT_COLOR = '#008080';
+
 export const EditModal: React.FC<Props> = ({
   show,
   item,
@@ -25,12 +27,14 @@ export const EditModal: React.FC<Props> = ({
 }: Props) => {
   const dispatch = useDispatch();
   const [label, setLabel] = useState('');
+  const [color, setColor] = useState(DEFAULT_COLOR);
   const [geoJson, setGeoJson] = useState<GeoJSON | undefined>(undefined);
   const [isValid, setValid] = useState<boolean>(true);
   const isNewItem = item === null;
 
   useEffect(() => {
     setLabel(item?.label || 'New Coordinates');
+    setColor(item?.color || DEFAULT_COLOR);
     setGeoJson(item?.geoJson);
   }, [item, show]);
 
@@ -49,6 +53,7 @@ export const EditModal: React.FC<Props> = ({
     setLabel('');
     setGeoJson(undefined);
     setValid(true);
+    setColor(DEFAULT_COLOR);
   };
 
   const handleCloseInternal = () => {
@@ -64,6 +69,7 @@ export const EditModal: React.FC<Props> = ({
         const modifiedItem: MapItem = {
           ...item,
           label,
+          color,
           geoJson,
           type: geoJson?.type as ItemType,
         };
@@ -74,10 +80,10 @@ export const EditModal: React.FC<Props> = ({
       } else {
         const newItem = {
           label,
+          color,
           geoJson,
           isVisible: true,
           type: geoJson?.type as ItemType,
-          color: '',
         };
 
         dispatch({
@@ -107,7 +113,7 @@ export const EditModal: React.FC<Props> = ({
             text={label}
             onChange={(event) => setLabel(event.target.value)}
           />
-          <Color />
+          <Color color={color} onChange={setColor} />
           <Tabs defaultActiveKey="wkt" className="mt-3">
             <Tab eventKey="wkt" title="WKT">
               <Wkt
