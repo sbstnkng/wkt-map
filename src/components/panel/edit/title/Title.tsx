@@ -21,7 +21,8 @@ export const Title: React.FC<Props> = ({ showAsEdit }) => {
 
   return (
     <Modal.Title>
-      {icon} {title}
+      {icon}
+      <span className="px-2">{title}</span>
     </Modal.Title>
   );
 };

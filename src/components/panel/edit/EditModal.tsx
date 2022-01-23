@@ -10,6 +10,7 @@ import { Color, Label, LatLon, Wkt } from './input';
 import { GeoJSON } from '../../../types/Geo';
 import { ItemType, MapItem } from '../../../types/Item';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
+import styles from './EditModal.module.css';
 
 interface Props {
   show: boolean;
@@ -91,7 +92,12 @@ export const EditModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal size="lg" show={show} onHide={handleCloseInternal}>
+    <Modal
+      size="lg"
+      show={show}
+      onHide={handleCloseInternal}
+      contentClassName={styles.modal}
+    >
       <Form onSubmit={handleSave}>
         <Modal.Header closeButton>
           <Title showAsEdit={!isNewItem} />
