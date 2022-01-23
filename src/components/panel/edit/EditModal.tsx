@@ -6,11 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Title from './title';
-import { Label, LatLon, Wkt } from './input';
+import { Color, Label, LatLon, Wkt } from './input';
 import { GeoJSON } from '../../../types/Geo';
 import { ItemType, MapItem } from '../../../types/Item';
 import { ADD_ITEM, MODIFY_ITEM } from '../../../redux/actionTypes';
-import styles from './EditModal.module.css';
 
 interface Props {
   show: boolean;
@@ -102,7 +101,8 @@ export const EditModal: React.FC<Props> = ({
             text={label}
             onChange={(event) => setLabel(event.target.value)}
           />
-          <Tabs defaultActiveKey="wkt" className={styles.tabPanel}>
+          <Color />
+          <Tabs defaultActiveKey="wkt" className="mt-3">
             <Tab eventKey="wkt" title="WKT">
               <Wkt
                 geoJson={geoJson}

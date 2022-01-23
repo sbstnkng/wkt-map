@@ -1,5 +1,6 @@
 import { Label } from './Label';
 import { Wkt } from './Wkt';
 import { LatLon } from './LatLon';
+import { Color } from './Color';
 
-export { Label, LatLon, Wkt };
+export { Color, Label, LatLon, Wkt };
