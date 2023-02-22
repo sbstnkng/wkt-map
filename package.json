@@ -76,7 +76,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/react-redux": "^7.1.25",
-    "@types/uuid": "^9.0.0",
+    "@types/uuid": "^9.0.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
