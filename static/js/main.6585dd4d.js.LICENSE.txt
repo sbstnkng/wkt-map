@@ -10,9 +10,9 @@ object-assign
  */
 
 /* @preserve
-* @terraformer/wkt - v2.1.1 - MIT
-* Copyright (c) 2012-2022 Environmental Systems Research Institute, Inc.
-* Tue Aug 02 2022 14:23:50 GMT-0700 (Pacific Daylight Time)
+* @terraformer/wkt - v2.1.2 - MIT
+* Copyright (c) 2012-2023 Environmental Systems Research Institute, Inc.
+* Tue Mar 28 2023 15:26:33 GMT-0700 (Pacific Daylight Time)
 */
 
 /*!
