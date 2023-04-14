@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://sbstnkng.github.io/wkt-map/",
   "dependencies": {
-    "@terraformer/wkt": "^2.1.2",
+    "@terraformer/wkt": "^2.2.0",
     "bootstrap": "^5.2.3",
     "leaflet": "^1.9.3",
     "object-hash": "^3.0.0",
