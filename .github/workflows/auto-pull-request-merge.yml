@@ -6,3 +6,5 @@ jobs:
       with:
         intervalSeconds: 10
         timeoutSeconds: 30
+        labels: dependencies
+        strategy: squash
