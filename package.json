@@ -78,7 +78,7 @@
     "@types/react-redux": "^7.1.27",
     "@types/uuid": "^9.0.5",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3"
