@@ -10,7 +10,7 @@
     "object-hash": "^3.0.0",
     "react": "^19.3.1",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.3.0",
+    "react-dom": "^19.3.1",
     "react-leaflet": "^3.2.5",
     "react-redux": "^9.3.0",
     "react-scripts": "5.0.1",
